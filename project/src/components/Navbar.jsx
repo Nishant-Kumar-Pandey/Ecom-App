@@ -14,7 +14,7 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto glass rounded-[2.5rem] p-4 flex items-center justify-between shadow-2xl-indigo">
                 <Link to="/" className="flex items-center space-x-3 px-4 hover:scale-110 transition-transform duration-500">
                     <span className="text-3xl font-black tracking-tighter bg-gradient-to-r from-indigo-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent transform">
-                        ShopHub
+                        LuxeMart 
                     </span>
                 </Link>
 
