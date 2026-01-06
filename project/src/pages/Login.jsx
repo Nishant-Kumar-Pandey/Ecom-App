@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { motion, AnimatePresence } from "framer-motion";
+import { LogIn, Mail, Lock, Eye, EyeOff, ArrowRight, ShieldCheck } from "lucide-react";
 import { login } from "../redux/userSlice";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
@@ -19,6 +21,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    const loadingToast = toast.loading("Authenticating...");
     try {
       const response = await axios.post(`${API_URL}/auth/login`, { email, password });
 
@@ -32,130 +35,140 @@ const Login = () => {
 
       dispatch(login(userData));
       auth.login(userData);
-      toast.success("Login Successful!");
+      toast.success("Welcome back!", { id: loadingToast });
       navigate("/profile");
-      console.log(response.data);
     } catch (error) {
       console.error(error);
       const msg = error.response?.data?.message || "Invalid credentials. Please try again.";
       setError(msg);
-      toast.error(msg);
+      toast.error(msg, { id: loadingToast });
     }
   };
 
   return (
-    <div className="flex min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-indigo-50/30 pt-24 animate-in">
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <div className="text-center">
-          <div className="mx-auto h-20 w-20 rounded-[2rem] bg-indigo-600 flex items-center justify-center shadow-2xl shadow-indigo-200 transform -rotate-12 hover:rotate-0 transition-transform duration-500 glass-dark border-0">
-            <svg className="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-          </div>
-          <h2 className="mt-10 text-4xl font-black tracking-tight text-gray-950">
-            Welcome Back
-          </h2>
-          <p className="mt-3 text-sm font-bold text-gray-500 uppercase tracking-widest">
-            Access your premium dashboard
-          </p>
-        </div>
+    <div className="min-h-screen bg-[var(--bg-primary)] pt-32 pb-20 px-4 flex items-center justify-center overflow-hidden">
+      {/* Background Decorations */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3]
+          }}
+          transition={{ duration: 10, repeat: Infinity }}
+          className="absolute top-1/4 -left-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-[100px]"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.2, 0.4, 0.2]
+          }}
+          transition={{ duration: 15, repeat: Infinity }}
+          className="absolute bottom-1/4 -right-20 w-80 h-80 bg-purple-500/10 rounded-full blur-[100px]"
+        />
       </div>
 
-      <div className="mt-12 sm:mx-auto sm:w-full sm:max-w-md glass p-10 rounded-[3rem] shadow-2xl-indigo border border-white/40">
-        {error && (
-          <div className="mb-6 p-4 rounded-2xl bg-red-50 border border-red-100 flex items-center gap-3 animate-shake">
-            <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <p className="text-sm font-bold text-red-600">{error}</p>
-          </div>
-        )}
-        <form className="space-y-8" onSubmit={handleSubmit}>
-          <div className="group">
-            <label htmlFor="email" className="block text-xs font-black uppercase tracking-widest text-gray-400 mb-3 ml-2 group-focus-within:text-indigo-600 transition-colors">
-              Email Address
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-gray-400 group-focus-within:text-indigo-600 transition-colors">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.206" /></svg>
-              </div>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="input-premium w-full py-4 pl-14 pr-6 text-sm font-bold text-gray-800"
-                placeholder="you@premium.com"
-              />
-            </div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full max-w-xl relative z-10"
+      >
+        <div className="glass p-8 md:p-12 rounded-[3.5rem] shadow-2xl border-white/20 dark:border-white/5">
+          <div className="text-center mb-10">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", damping: 12 }}
+              className="inline-flex p-5 rounded-[2rem] bg-indigo-600 shadow-xl shadow-indigo-500/20 mb-6"
+            >
+              <ShieldCheck size={40} className="text-white" />
+            </motion.div>
+            <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">
+              Identity <span className="text-indigo-600">Verified.</span>
+            </h2>
+            <p className="text-slate-400 font-bold uppercase text-xs tracking-[0.2em]">
+              Enter your premium credentials
+            </p>
           </div>
 
-          <div className="group">
-            <div className="flex items-center justify-between mb-3 ml-2">
-              <label htmlFor="password" className="block text-xs font-black uppercase tracking-widest text-gray-400 group-focus-within:text-indigo-600 transition-colors">
-                Security Key
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">
+                Digital ID (Email)
               </label>
-              <div className="text-xs">
-                <a href="#" className="font-extrabold text-indigo-600 hover:text-indigo-500 tracking-tighter">
-                  Recover access?
-                </a>
+              <div className="relative group">
+                <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="name@nexus.com"
+                  className="input-premium w-full py-5 ps-14 pe-6 font-bold"
+                />
               </div>
             </div>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-gray-400 group-focus-within:text-indigo-600 transition-colors">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+
+            <div className="space-y-2">
+              <div className="flex justify-between items-center ml-2">
+                <label className="text-xs font-black uppercase tracking-widest text-slate-400">
+                  Security Key
+                </label>
+                <button type="button" className="text-[10px] font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-500">
+                  Lost access?
+                </button>
               </div>
-              <input
-                id="password"
-                name="password"
-                type={showPassword ? "text" : "password"}
-                autoComplete="current-password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="input-premium w-full py-4 pl-14 pr-14 text-sm font-bold text-gray-800"
-                placeholder="••••••••"
-              />
-              <button
-                type="button"
-                className="absolute inset-y-0 right-0 flex items-center pr-5 text-gray-400 hover:text-indigo-600 transition-colors"
-                onClick={() => setShowPassword(!showPassword)}
+              <div className="relative group">
+                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="input-premium w-full py-5 ps-14 pe-14 font-bold"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+            </div>
+
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="bg-red-500/10 border border-red-500/20 p-4 rounded-2xl flex items-center gap-3"
               >
-                {showPassword ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.457 10.457 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
-                  </svg>
-                ) : (
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                )}
-              </button>
-            </div>
+                <div className="w-2 h-2 rounded-full bg-red-500" />
+                <p className="text-sm font-bold text-red-500">{error}</p>
+              </motion.div>
+            )}
+
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              type="submit"
+              className="w-full btn-premium py-5 group"
+            >
+              <span className="text-sm uppercase tracking-[0.2em] font-black">Authenticate</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </motion.button>
+          </form>
+
+          <div className="mt-10 pt-10 border-t border-slate-100 dark:border-slate-800 text-center">
+            <p className="text-sm font-bold text-slate-400">
+              No credentials?{" "}
+              <Link to="/signup" className="text-indigo-600 dark:text-indigo-400 hover:underline underline-offset-8">
+                Initialize New Account
+              </Link>
+            </p>
           </div>
-
-          <button
-            type="submit"
-            className="flex w-full justify-center items-center gap-3 rounded-[1.5rem] bg-gray-900 border border-transparent px-6 py-4 text-sm font-black uppercase tracking-[0.2em] text-white shadow-2xl-indigo btn-premium"
-          >
-            Authenticate
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7-7 7" /></svg>
-          </button>
-        </form>
-
-        <div className="mt-10 pt-10 border-t border-gray-100/50 text-center">
-          <p className="text-sm font-extrabold text-gray-400">
-            Don't have an elite account?{" "}
-            <Link to="/signup" className="text-indigo-600 hover:text-indigo-500 underline underline-offset-8">
-              Join the Hub
-            </Link>
-          </p>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

@@ -1,38 +1,75 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   font-family: 'Outfit', sans-serif;
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --accent-primary: #6366f1;
+  --accent-secondary: #8b5cf6;
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-blur: 16px;
 }
 
-@layer utilities {
-  .glass {
-    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-xl;
-  }
+.dark {
+  --bg-primary: #020617;
+  --bg-secondary: #0f172a;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent-primary: #818cf8;
+  --accent-secondary: #a78bfa;
+  --glass-bg: rgba(15, 23, 42, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-blur: 24px;
+}
 
-  .glass-dark {
-    @apply bg-gray-900/60 backdrop-blur-xl border border-white/10 shadow-2xl;
-  }
+body {
+  @apply bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-500 selection:bg-indigo-500/30;
+}
 
-  .hover-lift {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl;
-  }
+@utility glass {
+  @apply border shadow-2xl;
+  background-color: var(--glass-bg);
+  border-color: var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur));
+}
 
-  .text-glow {
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-  }
+@utility glass-card {
+  @apply glass rounded-[2rem] hover:shadow-indigo-500/10 transition-all duration-500;
+}
 
-  .btn-premium {
-    @apply relative overflow-hidden transition-all duration-300 active:scale-95 hover:brightness-110 active:brightness-90;
-  }
+@utility text-gradient {
+  @apply bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent;
+}
 
-  .input-premium {
-    @apply bg-white/50 backdrop-blur-sm border border-gray-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 rounded-2xl transition-all duration-300;
-  }
+@utility text-bold-glow {
+  @apply font-black tracking-tight;
+  text-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+}
 
-  .scale-hover {
-    @apply transition-transform duration-500 hover:scale-105 active:scale-95;
-  }
+@utility btn-premium {
+  @apply relative px-6 py-3 rounded-2xl font-bold transition-all duration-500 active:scale-95 hover:brightness-110 overflow-hidden bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 flex items-center justify-center gap-2;
+}
+
+@utility input-premium {
+  @apply bg-white/40 dark:bg-slate-900/40 backdrop-blur-md border border-slate-200 dark:border-slate-800 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 rounded-2xl transition-all duration-500 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500;
+}
+
+@utility scale-hover {
+  @apply transition-transform duration-500 hover:scale-105 active:scale-95 ease-out;
+}
+
+@utility shadow-indigo-premium {
+  box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
+}
+
+@utility shadow-indigo-subtle {
+  box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.05);
 }
 
 @keyframes fadeIn {

@@ -12,12 +12,14 @@ import upload from "../config/multer.js";
 import { error } from "console";
 dotenv.config();
 
-const Authcontroller = express();
+const Authcontroller = express.Router();
 
 // Register
 // Register
 Authcontroller.post("/register", upload.single("avatar"), async (req, res) => {
   try {
+    console.log("Register Request Body:", req.body);
+    console.log("Register Request File:", req.file);
     const { username, email, password } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser)
@@ -68,7 +70,9 @@ Authcontroller.post("/login", async (req, res) => {
       message: "Login successful",
       user: {
         username: user.username,
-        email: user.email
+        email: user.email,
+        avatar: user.avatar,
+        role: user.role || "User"
       }
     });
   } catch (err) {
