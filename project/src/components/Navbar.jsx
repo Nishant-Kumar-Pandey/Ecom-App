@@ -30,7 +30,7 @@ export default function Navbar() {
                         <ShoppingCart className="text-white w-6 h-6" />
                     </motion.div>
                     <span className="text-2xl font-black tracking-tighter text-gradient">
-                        LuxeMart
+                        DealNest
                     </span>
                 </Link>
 
