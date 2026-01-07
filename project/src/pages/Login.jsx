@@ -113,7 +113,7 @@ const Login = () => {
                 <label className="text-xs font-black uppercase tracking-widest text-slate-400">
                   Security Key
                 </label>
-                <Link to="/forgot-password" size="sm" className="text-[10px] font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-500">
+                <Link to="/forgot-password" className="text-xs font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-500 hover:underline underline-offset-4 transition-all">
                   Lost access?
                 </Link>
               </div>
