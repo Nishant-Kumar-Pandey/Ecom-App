@@ -32,7 +32,7 @@ export default function Contact() {
     const contactInfo = [
         {
             title: "Concierge Service",
-            detail: "+1 (555) LUXE-MART",
+            detail: "+1 (555) DEAL-NEST",
             subDetail: "Toll-free, 24/7 Support",
             icon: <Phone className="w-6 h-6" />,
             color: "text-blue-500",
@@ -40,7 +40,7 @@ export default function Contact() {
         },
         {
             title: "Email Inquiry",
-            detail: "elite@luxemart.com",
+            detail: "elite@dealnest.com",
             subDetail: "Response within 2 hours",
             icon: <Mail className="w-6 h-6" />,
             color: "text-indigo-500",

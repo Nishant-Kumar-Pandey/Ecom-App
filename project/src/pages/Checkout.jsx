@@ -53,7 +53,7 @@ const Checkout = () => {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID || "rzp_test_YOUR_KEY_HERE", // Fallback if env not set
         amount: amount.toString(),
         currency: currency,
-        name: "ShopHub Premium",
+        name: "DealNest Premium",
         description: "Transaction for Order",
         order_id: order_id,
         handler: async function (response) {

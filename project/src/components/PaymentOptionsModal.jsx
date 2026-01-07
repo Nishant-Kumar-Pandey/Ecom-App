@@ -108,7 +108,7 @@ const PaymentOptionsModal = ({ isOpen, onClose, onPaymentComplete, user = null }
                                     </div>
                                     <div>
                                         <h4 className="text-white font-black uppercase tracking-[0.2em] text-[10px] opacity-50">Secure Checkout</h4>
-                                        <span className="font-black text-lg tracking-tight italic">LuxeMart Pay</span>
+                                        <span className="font-black text-lg tracking-tight italic">DealNest Pay</span>
                                     </div>
                                 </div>
 

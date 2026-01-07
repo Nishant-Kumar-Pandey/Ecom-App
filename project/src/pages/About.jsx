@@ -113,7 +113,7 @@ export default function About() {
                         </span>
                     </h1>
                     <p className="text-xl text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
-                        LuxeMart isn't just a platform; it's a curated ecosystem designed for those who demand the absolute best in life, quality, and design.
+                        DealNest isn't just a platform; it's a curated ecosystem designed for those who demand the absolute best in life, quality, and design.
                     </p>
                 </motion.div>
 
@@ -129,7 +129,7 @@ export default function About() {
                         <div className="relative glass p-10 md:p-14 rounded-[3.5rem] border border-white/20 dark:border-white/10 shadow-2xl backdrop-blur-xl">
                             <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-8 tracking-tight italic">Our Philosophy</h2>
                             <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed mb-8 font-medium">
-                                At LuxeMart, we believe that true luxury lies in the details. Every product in our collection is meticulously vetted to ensure it meets our rigorous standards for craftsmanship, sustainability, and design.
+                                At DealNest, we believe that true luxury lies in the details. Every product in our collection is meticulously vetted to ensure it meets our rigorous standards for craftsmanship, sustainability, and design.
                             </p>
                             <div className="space-y-6">
                                 {[
