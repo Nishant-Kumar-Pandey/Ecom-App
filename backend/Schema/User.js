@@ -17,6 +17,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  resetPasswordOTP: {
+    type: String,
+  },
+  resetPasswordExpires: {
+    type: Date,
+  },
 });
 const User = mongoose.model("User", userSchema);
 

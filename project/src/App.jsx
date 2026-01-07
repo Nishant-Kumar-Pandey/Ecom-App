@@ -10,6 +10,7 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
+import ForgotPassword from "./pages/ForgotPassword";
 
 import Checkout from "./pages/Checkout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -32,6 +33,7 @@ export default function App() {
                             <Route path="/contact" element={<Contact />} />
                             <Route path="/login" element={<Login />} />
                             <Route path="/signup" element={<SignUp />} />
+                            <Route path="/forgot-password" element={<ForgotPassword />} />
                             <Route
                                 path="/profile"
                                 element={

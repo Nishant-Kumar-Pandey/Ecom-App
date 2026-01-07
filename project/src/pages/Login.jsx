@@ -113,9 +113,9 @@ const Login = () => {
                 <label className="text-xs font-black uppercase tracking-widest text-slate-400">
                   Security Key
                 </label>
-                <button type="button" className="text-[10px] font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-500">
+                <Link to="/forgot-password" size="sm" className="text-[10px] font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-500">
                   Lost access?
-                </button>
+                </Link>
               </div>
               <div className="relative group">
                 <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />

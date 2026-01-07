@@ -142,4 +142,64 @@ Authcontroller.put("/profile", upload.single("avatar"), async (req, res) => {
   }
 });
 
+// Forgot Password - Send OTP
+Authcontroller.post("/forgot-password", async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found with this email" });
+    }
+
+    // Generate 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    user.resetPasswordOTP = otp;
+    user.resetPasswordExpires = Date.now() + 600000; // 10 minutes expiry
+    await user.save();
+
+    await sendMail({
+      to: user.email,
+      subject: "Your Password Reset OTP",
+      text: `Your OTP for password reset is: ${otp}. It will expire in 10 minutes.`
+    });
+
+    res.status(200).json({ message: "OTP sent to registered email" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Reset Password
+Authcontroller.post("/reset-password", async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+    const user = await User.findOne({
+      email,
+      resetPasswordOTP: otp,
+      resetPasswordExpires: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    user.resetPasswordOTP = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+
+    await sendMail({
+      to: user.email,
+      subject: "Password Reset Successful",
+      text: `Your password has been reset successfully. If this was not you, please contact customer care immediately.`
+    });
+
+    res.status(200).json({ message: "Password reset successful" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 export default Authcontroller;
