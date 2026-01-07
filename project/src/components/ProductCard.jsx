@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, Star, Plus, Minus, Heart } from "lucide-react";
 import { addToCart, decrementQuantity } from "../redux/cartSlice";
 import { useNavigate } from "react-router-dom";
+import { resolveImageUrl } from "../config";
 
 export default function ProductCard({ product }) {
     const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export default function ProductCard({ product }) {
                 <motion.img
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.6 }}
-                    src={product.thumbnail}
+                    src={resolveImageUrl(product.thumbnail)}
                     alt={product.title}
                     className="w-full h-full object-cover"
                 />

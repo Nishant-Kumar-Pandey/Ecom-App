@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { addToCart, removeFromCart, decrementQuantity, clearCart } from "../redux/cartSlice";
+import { resolveImageUrl } from "../config";
 
 export default function Cart() {
     const cart = useSelector((state) => state.cart);
@@ -54,7 +55,7 @@ export default function Cart() {
                         {cart.map((item) => (
                             <div key={item.id} className="glass p-6 rounded-[2.5rem] flex flex-col sm:flex-row items-center gap-8 animate-in group">
                                 <div className="w-40 h-40 rounded-3xl overflow-hidden shadow-xl flex-shrink-0">
-                                    <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                                    <img src={resolveImageUrl(item.thumbnail)} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                                 </div>
                                 <div className="flex-1 w-full">
                                     <div className="flex justify-between items-start mb-2">

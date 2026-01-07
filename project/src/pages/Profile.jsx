@@ -11,7 +11,7 @@ import { logout, updateProfile } from "../redux/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
-import { API_URL } from "../config";
+import { API_URL, resolveImageUrl } from "../config";
 import toast from "react-hot-toast";
 
 export default function Profile() {
@@ -145,7 +145,7 @@ export default function Profile() {
                 <motion.div className="relative group">
                   <div className="absolute -inset-2 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full blur opacity-50 group-hover:opacity-100 transition duration-700" />
                   <div className="relative w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden border-8 border-slate-900 shadow-2xl bg-slate-800">
-                    <img src={previewUrl || user.avatar} className="w-full h-full object-cover" alt="Profile" />
+                    <img src={previewUrl || resolveImageUrl(user.avatar)} className="w-full h-full object-cover" alt="Profile" />
                     <label htmlFor="profile-upload" className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
                       <Camera className="text-white w-10 h-10" />
                     </label>

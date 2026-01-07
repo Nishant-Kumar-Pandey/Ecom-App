@@ -42,7 +42,7 @@ const SignUp = () => {
         formDataToSend.append("avatar", formData.avatar);
       }
 
-      const response = await axios.post(`${API_URL}/auth/register`, formDataToSend);
+      const response = await axios.post(`${API_URL} /auth/register`, formDataToSend);
       toast.success("Account initialized! Please login.", { id: loadingToast });
       navigate("/login");
     } catch (error) {
@@ -89,7 +89,7 @@ const SignUp = () => {
               <Sparkles className="animate-pulse" />
             </motion.div>
             <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight leading-[0.9]">
-              Join the <br /> <span className="text-indigo-600">Luxe Network.</span>
+              Join the <br /> <span className="text-indigo-600">DealNest Network.</span>
             </h2>
             <p className="text-slate-400 font-bold uppercase text-[10px] tracking-[0.3em] mt-4">
               Unlock elite commerce experiences
