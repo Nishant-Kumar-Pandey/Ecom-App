@@ -1,8 +1,16 @@
 {
     "rewrites": [
         {
-            "source": "/(.*)",
-            "destination": "/index.html"
+            "source": "/assets/(.*)",
+            "destination": "/project/dist/assets/$1"
+        },
+        {
+            "source": "/vite.svg",
+            "destination": "/project/dist/vite.svg"
+        },
+        {
+            "source": "/((?!assets/|vite.svg).*)",
+            "destination": "/project/dist/index.html"
         }
     ]
 }
