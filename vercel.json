@@ -1,11 +1,17 @@
 {
-    "routes": [
+    "cleanUrls": true,
+    "rewrites": [
         {
-            "handle": "filesystem"
+            "source": "/assets/(.*)",
+            "destination": "/project/dist/assets/$1"
         },
         {
-            "src": "/.*",
-            "dest": "/index.html"
+            "source": "/vite.svg",
+            "destination": "/project/dist/vite.svg"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/project/dist/index.html"
         }
     ]
 }
