@@ -109,23 +109,23 @@ export default function Home() {
     };
 
     if (status === "loading") {
-        return (
-            <div className="flex justify-center items-center h-96">
-                <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-600"></div>
-            </div>
-        );
+        return <Loading />;
     }
 
     if (status === "failed") {
         return (
-            <div className="flex flex-col justify-center items-center h-screen px-4 text-center">
-                <div className="bg-red-50 text-red-600 p-6 rounded-xl border border-red-200 max-w-lg">
-                    <svg className="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                    <h2 className="text-xl font-bold mb-2">Something went wrong</h2>
-                    <p className="mb-4">We couldn't load the products. The server might be down or unreachable.</p>
-                    <p className="font-mono text-sm bg-white p-2 rounded border border-red-100 mb-6">{error || "Unknown Error"}</p>
-                    <button onClick={() => dispatch(fetchProducts())} className="px-6 py-2 bg-red-600 text-white rounded-lg font-bold hover:bg-red-700 transition-colors">
-                        Retry
+            <div className="flex flex-col justify-center items-center h-screen px-4 text-center bg-[var(--bg-primary)]">
+                <div className="glass p-10 rounded-[3rem] border-red-500/20 shadow-2xl max-w-lg">
+                    <div className="w-16 h-16 bg-red-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <AlertCircle className="text-red-500 w-8 h-8" />
+                    </div>
+                    <h2 className="text-3xl font-black mb-2 text-slate-900 dark:text-white">Connection <span className="text-red-500">Failed.</span></h2>
+                    <p className="text-slate-500 font-bold mb-8 tracking-tight">We couldn't synchronize with the neural network. Check your terminal.</p>
+                    <div className="font-mono text-xs bg-red-500/5 p-4 rounded-2xl border border-red-500/10 mb-8 text-red-400 break-all">
+                        {error || "ERR_CONNECTION_REFUSED"}
+                    </div>
+                    <button onClick={() => dispatch(fetchProducts())} className="btn-premium w-full !bg-red-600 !shadow-red-500/20">
+                        Retry Connection
                     </button>
                 </div>
             </div>
@@ -133,7 +133,8 @@ export default function Home() {
     }
 
     return (
-        <div className="bg-[var(--bg-primary)] min-h-screen pb-20 pt-28 transition-colors duration-300 flex">
+        <div className="bg-[var(--bg-primary)] min-h-screen pb-20 pt-28 transition-colors duration-300">
+
 
             {/* Filter Sidebar (Mobile Drawer / Desktop Sidebar) */}
             <AnimatePresence>
@@ -268,14 +269,14 @@ export default function Home() {
                             />
                         </div>
 
-                        <div className="relative h-full flex flex-col justify-center px-12 md:px-20 z-10">
+                        <div className="relative h-full flex flex-col justify-center px-6 md:px-20 z-10">
                             <motion.div
                                 initial={{ opacity: 0, x: -50 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.2 }}
                                 className="flex items-center gap-2 mb-6"
                             >
-                                <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-indigo-300 text-xs font-black uppercase tracking-widest">
+                                <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-indigo-300 text-[10px] md:text-xs font-black uppercase tracking-widest">
                                     Premium Collection 2026
                                 </span>
                                 <Sparkles className="w-4 h-4 text-indigo-400 animate-pulse" />
@@ -285,10 +286,11 @@ export default function Home() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.4 }}
-                                className="text-6xl md:text-8xl font-black text-white mb-6 leading-[0.9] tracking-tight"
+                                className="text-4xl sm:text-6xl md:text-8xl font-black text-white mb-6 leading-[1.1] md:leading-[0.9] tracking-tight"
                             >
                                 Elevate <br /> <span className="text-indigo-400">Your Style.</span>
                             </motion.h1>
+
 
                             <motion.p
                                 initial={{ opacity: 0 }}

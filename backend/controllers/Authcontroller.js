@@ -20,7 +20,8 @@ Authcontroller.post("/register", upload.single("avatar"), async (req, res) => {
   try {
     console.log("Register Request Body:", req.body);
     console.log("Register Request File:", req.file);
-    const { username, email, password } = req.body;
+    const { username, password } = req.body;
+    const email = req.body.email?.toLowerCase();
     const existingUser = await User.findOne({ email });
     if (existingUser)
       return res.status(400).json({ message: "Email already exists" });
@@ -41,7 +42,8 @@ Authcontroller.post("/register", upload.single("avatar"), async (req, res) => {
 
 //login
 Authcontroller.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const email = req.body.email?.toLowerCase();
+  const { password } = req.body;
   try {
     const user = await User.findOne({ email: email });
     if (!user) {
@@ -145,7 +147,7 @@ Authcontroller.put("/profile", upload.single("avatar"), async (req, res) => {
 // Forgot Password - Send OTP
 Authcontroller.post("/forgot-password", async (req, res) => {
   try {
-    const { email } = req.body;
+    const email = req.body.email?.toLowerCase();
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: "User not found with this email" });
@@ -172,7 +174,8 @@ Authcontroller.post("/forgot-password", async (req, res) => {
 // Reset Password
 Authcontroller.post("/reset-password", async (req, res) => {
   try {
-    const { email, otp, newPassword } = req.body;
+    const { otp, newPassword } = req.body;
+    const email = req.body.email?.toLowerCase();
     const user = await User.findOne({
       email,
       resetPasswordOTP: otp,
