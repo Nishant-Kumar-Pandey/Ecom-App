@@ -1,16 +1,11 @@
 {
-    "rewrites": [
+    "routes": [
         {
-            "source": "/assets/(.*)",
-            "destination": "/project/dist/assets/$1"
+            "handle": "filesystem"
         },
         {
-            "source": "/vite.svg",
-            "destination": "/project/dist/vite.svg"
-        },
-        {
-            "source": "/((?!assets/|vite.svg).*)",
-            "destination": "/project/dist/index.html"
+            "src": "/.*",
+            "dest": "/index.html"
         }
     ]
 }

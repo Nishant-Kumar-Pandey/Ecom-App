@@ -15,7 +15,7 @@
   "type": "commonjs",
   "main": "test_api.js",
   "scripts": {
-    "build": "cd project && npm install && npm run build",
+    "build": "cd project && npm install && npm run build && cp -r dist/* ../",
     "dev": "cd project && npm run dev",
     "start": "cd backend && npm start"
   },
