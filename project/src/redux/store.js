@@ -3,7 +3,27 @@ import cartSlice from "./cartSlice";
 import productSlice from "./productSlice";
 import userSlice from "./userSlice";
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
+
+// Create safe storage for SSR/Vercel builds
+const createNoopStorage = () => {
+    return {
+        getItem() {
+            return Promise.resolve(null);
+        },
+        setItem(_key, value) {
+            return Promise.resolve(value);
+        },
+        removeItem() {
+            return Promise.resolve();
+        },
+    };
+};
+
+// Use localStorage if available, otherwise use noop storage
+const storage = typeof window !== 'undefined'
+    ? createWebStorage('local')
+    : createNoopStorage();
 
 const rootReducer = combineReducers({
     cart: cartSlice.reducer,
@@ -14,6 +34,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
     key: 'root',
     storage,
+    serialize: true,
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
